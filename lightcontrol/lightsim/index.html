@@ -1,0 +1,55 @@
+
+<!DOCTYPE html> 
+<html> 
+<head> 
+<style type="text/css"> 
+.floor {
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:0;
+}
+.layer {
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:1;
+}
+
+</style> 
+</head> 
+<body> 
+<img class="floor" id="floor" src="images/floorplan_p.jpg" usemap="#floormap" />
+<img class="layer" id="living" src="images/floorplan_living.png" />
+<img class="layer" id="bed1" src="images/floorplan_bed1.png" />
+<img class="layer" id="bed2" src="images/floorplan_bed2.png" />
+<img class="layer" id="bed3" src="images/floorplan_bed3.png" />
+<img class="layer" id="laundry" src="images/floorplan_laundry.png" />
+<img class="layer" id="kitchen" src="images/floorplan_kitchen.png" usemap="#floormap" />
+
+<map name="floormap">
+  <area shape="rect" coords="32,190,125,275" alt="bed2" onClick="toggleRoom('bed2');">
+  <area shape="rect" coords="32,305,160,445" alt="bed1" onClick="toggleRoom('bed1');">
+  <area shape="rect" coords="165,190,233,275" alt="bed3" onClick="toggleRoom('bed3');">
+  <area shape="rect" coords="240,190,322,304" alt="kitchen" onClick="toggleRoom('kitchen');">
+  <area shape="rect" coords="196,78,300,190" alt="laundry" onClick="toggleRoom('laundry');">
+  <area shape="rect" coords="162,304,322,508" alt="living" onClick="toggleRoom('living');">
+</map>
+
+<script>
+var currentStatus = {'bed1':1,
+                     'bed2':1,
+                     'bed3':1,
+                     'living':1,
+                     'laundry':1,
+                     'kitchen':1};
+function toggleRoom(room){
+    var status = 1 - currentStatus[room];
+    var element = document.getElementById(room);
+    element.style.opacity = status;
+    element.style.filter  = 'alpha(opacity=' + status +')';
+    currentStatus[room] = status;
+}
+</script>
+</body> 
+</html> 
