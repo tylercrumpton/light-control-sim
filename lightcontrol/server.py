@@ -1,6 +1,10 @@
 import tornado.ioloop
 import tornado.web
 import os
+import RPIO
+
+# Setup the output pins:
+RPIO.setup(22, RPIO.OUT)
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
@@ -17,8 +21,10 @@ class SetLightByNameHandler(tornado.web.RequestHandler):
     def get(self, name, command):
         if command.lower() == "on":
             response = "Turning %s light on." % name.lower()
+            RPIO.output(22, True)
         if command.lower() == "off":
             response = "Turning %s light off." % name.lower()
+            RPIO.output(22, False)
         if command.lower() == "toggle":
             response = "Toggling %s light." % name.lower()
         print response
