@@ -43,12 +43,30 @@ var currentStatus = {'bed1':1,
                      'living':1,
                      'laundry':1,
                      'kitchen':1};
+                     
+for (room in currentStatus) {
+    httpGet("http://192.168.1.13:8888/hardware/setlightbyname/" + room + "/on");
+}
 function toggleRoom(room){
     var status = 1 - currentStatus[room];
     var element = document.getElementById(room);
     element.style.opacity = status;
     element.style.filter  = 'alpha(opacity=' + status +')';
     currentStatus[room] = status;
+    var action = "off";
+    if (status){
+        action = "on";
+    }
+    httpGet("http://192.168.1.13:8888/hardware/setlightbyname/" + room + "/" + action);
+}
+function httpGet(url)
+{
+    var xmlHttp = null;
+
+    xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", url, false );
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
 }
 </script>
 </body> 
